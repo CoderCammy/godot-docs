@@ -35,23 +35,23 @@ Here is a complete class example based on these guidelines:
 
     signal state_changed(previous, new)
 
-    export var initial_state = NodePath()
-    var is_active = true setget set_is_active
+    @export var initial_state = NodePath()
+    var is_active = true : set = set_is_active
 
-    @onready var _state = get_node(initial_state) setget set_state
+    @onready var _state = get_node(initial_state) : set = set_state
     @onready var _state_name = _state.name
 
 
     func _init():
         add_to_group("state_machine")
-        
-        
+
+
     func _enter_tree():
         print("this happens before the ready method!")
-        
+
 
     func _ready():
-        connect("state_changed", self, "_on_state_changed")
+        state_changed.connect(_on_state_changed)
         _state.enter()
 
 
